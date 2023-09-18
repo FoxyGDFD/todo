@@ -8,6 +8,7 @@ import { defineConfig } from 'vite';
 // https://vitejs.dev/config/
 
 export default defineConfig({
+  base: 'https://foxygdfd.github.io/mindbox-test/',
   plugins: [react()],
   resolve: {
     alias: {

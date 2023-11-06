@@ -1,16 +1,18 @@
-import useTodoFilter from '@shared/store/todos/useTodoFilter.ts';
-import useTodosStore from '@shared/store/todos/useTodosStore.ts';
-import { FC } from 'react';
+import { TodosContext } from '@enteties/todo/context';
+import { useTodo } from '@enteties/todo/hooks/useTodo';
+import { Filters, Todo } from '@enteties/todo/types';
+import { FC, useContext } from 'react';
 import { Box, Button } from 'simplify-dev';
 import { TabList, TabListProvider } from 'simplify-dev/client-ui';
 
 const TodoFilter: FC = () => {
-  const { setFilter } = useTodoFilter();
-  const { removeTodo, todos } = useTodosStore();
+  const { remove, setFilter } = useTodo();
+
+  const { todos } = useContext(TodosContext);
 
   const clearCompletedTodos = () => {
-    todos.forEach(({ id, isCompleted }) => {
-      if (isCompleted) removeTodo(id);
+    todos.forEach(({ id, isCompleted }: Partial<Todo>) => {
+      if (isCompleted) remove(id as string);
     });
   };
 
@@ -19,7 +21,7 @@ const TodoFilter: FC = () => {
       <Box className='mt-[20px] flex gap-[20px]'>
         <TabList selectedVariant='primary' className='flex  gap-[20px]'>
           <Button
-            onClick={() => setFilter('all')}
+            onClick={() => setFilter(Filters.ALL)}
             variant='secondary'
             buttonType='text'
             id='all'
@@ -27,7 +29,7 @@ const TodoFilter: FC = () => {
             All
           </Button>
           <Button
-            onClick={() => setFilter('active')}
+            onClick={() => setFilter(Filters.ACTIVE)}
             variant='secondary'
             buttonType='text'
             id='active'
@@ -35,7 +37,7 @@ const TodoFilter: FC = () => {
             Active
           </Button>
           <Button
-            onClick={() => setFilter('completed')}
+            onClick={() => setFilter(Filters.COMPLETED)}
             variant='secondary'
             buttonType='text'
             id='completed'

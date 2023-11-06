@@ -1,7 +1,0 @@
-{
-  "list": [
-    { "id": "1", "isCompleted": false, "name": "Task 1" },
-    { "id": "2", "isCompleted": true, "name": "Task 2" },
-    { "id": "3", "isCompleted": false, "name": "Task 3" }
-  ]
-}

@@ -1,61 +1,79 @@
-import { list } from '@shared/mockData/mockLIst.json' assert { type: 'json' };
+import { Filters, Todo } from '@enteties/todo/types';
 import '@testing-library/jest-dom';
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
 import TodoFilter from '@widgets/ui/TodoFilter/TodoFilter.tsx';
 import TodoList from '@widgets/ui/TodoList/TodoList.tsx';
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
+import TodosProvider from '@features/TodosProvider';
 
 describe('TodoFilterComponents', () => {
+  beforeEach(() => cleanup());
+
   it('Filter by active', () => {
+    const todos: Todo[] = [
+      { id: '1', isCompleted: false, name: '1' },
+      { id: '2', isCompleted: true, name: '123' }
+    ];
+    
     render(
-      <>
-        <TodoList todos={list} />
+      <TodosProvider init={{ filter: Filters.ALL, todos }}>
+        <TodoList />
         <TodoFilter />
-      </>
+      </TodosProvider>
     );
 
     act(() => {
       fireEvent.click(screen.getByText('Active'));
     });
 
-    expect(screen.getAllByRole('todo-item').length).toBe(
-      list.filter(({ isCompleted }) => !isCompleted).length
-    );
+    expect(screen.getAllByRole('todo-item').length).toBe(todos.filter(({isCompleted }) => !isCompleted).length);
   });
 
+
   it('Filter by completed', () => {
+    const todos: Todo[] = [
+      { id: '1', isCompleted: true, name: '1' },
+      { id: '2', isCompleted: false, name: '123' }
+    ];
+
     render(
-      <>
-        <TodoList todos={list} />
+      <TodosProvider init={{todos, filter: Filters.ALL}}>
+        <TodoList />
         <TodoFilter />
-      </>
+      </TodosProvider>
     );
 
     act(() => {
       fireEvent.click(screen.getByText('Completed'));
     });
 
-    expect(screen.getAllByRole('todo-item').length).toBe(
-      list.filter(({ isCompleted }) => isCompleted).length
-    );
-  });
+    expect(screen.getAllByRole('todo-item').length).toBe(todos.filter(({ isCompleted }) => isCompleted).length);
+      });
+
 
   it('Filter by all', () => {
+    const todos: Todo[] = [
+      { id: '1', isCompleted: false, name: '1' },
+      { id: '2', isCompleted: false, name: '1' }
+    ];
+
     render(
-      <>
-        <TodoList todos={list} />
+      <TodosProvider init={{todos, filter: Filters.ALL}}>
+        <TodoList />
         <TodoFilter />
-      </>
+      </TodosProvider>
     );
 
+
+
     act(() => {
-      fireEvent.click(screen.getByText('Completed'));
+      fireEvent.click(screen.getByText('Active'));
     });
 
     act(() => {
       fireEvent.click(screen.getByText('All'));
     });
 
-    expect(screen.getAllByRole('todo-item').length).toBe(list.length);
+    expect(screen.getAllByRole('todo-item').length).toBe(todos.length);
   });
 });

@@ -1,14 +1,12 @@
-import useFilterTodos from '@features/useFilterTodos/useFilterTodos.ts';
-import { Todo, default as TodoItem } from '@widgets/ui/Todo/Todo.tsx';
+import useFilterTodo from '@enteties/todo/hooks/useFilterTodo';
+import TodoItem from '@widgets/ui/Todo/Todo';
 import { FC } from 'react';
 import { Box } from 'simplify-dev';
 import { useListItemFocus } from 'simplify-dev/hooks';
 
-type TodoListProps = { todos: Todo[] };
-const TodoList: FC<TodoListProps> = props => {
-  const { todos } = props;
+const TodoList: FC = () => {
   const { listRef, onKeyDown } = useListItemFocus('todo-item');
-  const list = useFilterTodos(todos);
+  const todos = useFilterTodo();
 
   return (
     <Box
@@ -18,7 +16,7 @@ const TodoList: FC<TodoListProps> = props => {
       role='todo-list'
       as='ul'
     >
-      {list.map(todo => (
+      {todos.map(todo => (
         <TodoItem key={todo.id} {...todo} />
       ))}
     </Box>

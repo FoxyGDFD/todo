@@ -8,13 +8,14 @@ import { defineConfig } from 'vite';
 // https://vitejs.dev/config/
 
 export default defineConfig({
-  base: 'https://foxygdfd.github.io/mindbox-test/',
+  base: 'https://foxygdfd.github.io/todo/',
   plugins: [react()],
   resolve: {
     alias: {
       '@app': path.resolve(__dirname, 'src/app'),
-      '@entities': path.resolve(__dirname, 'src/entities'),
+      '@enteties': path.resolve(__dirname, 'src/enteties'),
       '@features': path.resolve(__dirname, 'src/features'),
+      '@pages': path.resolve(__dirname, 'src/pages'),
       '@shared': path.resolve(__dirname, 'src/shared'),
       '@widgets': path.resolve(__dirname, 'src/widgets')
     }

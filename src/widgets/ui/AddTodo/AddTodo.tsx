@@ -1,14 +1,14 @@
-import useAddTodo from '@features/useAddTodo/useAddTodo.ts';
+import { useTodo } from '@enteties/todo/hooks/useTodo';
 import { FC } from 'react';
 import { Box, Button, Input } from 'simplify-dev';
 
 const AddTodo: FC = () => {
-  const { createTodo, ref } = useAddTodo();
+  const { add, ref } = useTodo();
 
   return (
     <Box
       className='flex justify-between gap-[10px] rounded-[10px] border-[2px] border-slate-400 bg-white p-[10px]'
-      onSubmit={createTodo}
+      onSubmit={add}
       as='form'
     >
       <Input

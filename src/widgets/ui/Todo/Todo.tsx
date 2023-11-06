@@ -1,20 +1,18 @@
-import useTodosStore from '@shared/store/todos/useTodosStore.ts';
+import { useTodo } from '@enteties/todo/hooks/useTodo';
+import { Todo } from '@enteties/todo/types';
 import { FC } from 'react';
-import { Button, ButtonProps, Typography } from 'simplify-dev';
+import { Button, Typography } from 'simplify-dev';
 import { Checkbox } from 'simplify-dev/client-ui';
 
-export type Todo = {
-  readonly id: string;
-  name: string;
-  isCompleted: boolean;
-};
-
-const TodoItem: FC<Todo & ButtonProps> = props => {
+const TodoItem: FC<Todo> = props => {
   const { id, isCompleted, name } = props;
-  const { updateTodo } = useTodosStore();
+  const { update } = useTodo();
 
   const updateTask = () => {
-    updateTodo(id);
+    update({
+      id,
+      isCompleted: !isCompleted
+    });
   };
 
   return (

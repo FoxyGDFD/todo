@@ -1,4 +1,5 @@
-import { list } from '@shared/mockData/mockLIst.json' assert { type: 'json' };
+import { TodosContext } from '@enteties/todo/context';
+import { Filters, Todo } from '@enteties/todo/types';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import TodoList from '@widgets/ui/TodoList/TodoList.tsx';
@@ -6,16 +7,29 @@ import { describe, expect, it } from 'vitest';
 
 describe('TodoList component', () => {
   it('Render empty todo list', () => {
-    render(<TodoList todos={[]} />);
+    const todos: Todo[] = [];
+    render(
+      <TodosContext.Provider value={{ filter: Filters.ALL, todos }}>
+        <TodoList />
+      </TodosContext.Provider>
+    );
 
     expect(screen.getByRole('todo-list')).toBeInTheDocument();
     expect(screen.getByRole('todo-list').children.length).toBe(0);
   });
 
   it('Render todo list', () => {
-    render(<TodoList todos={list} />);
+    const todos: Todo[] = [
+      { id: '1', isCompleted: false, name: '1' },
+      { id: '2', isCompleted: false, name: '1' }
+    ];
+    render(
+      <TodosContext.Provider value={{ filter: Filters.ALL, todos }}>
+        <TodoList />
+      </TodosContext.Provider>
+    );
 
     expect(screen.getByRole('todo-list')).toBeInTheDocument();
-    expect(screen.getByRole('todo-list').children.length).toBe(list.length);
+    expect(screen.getByRole('todo-list').children.length).toBe(todos.length);
   });
 });

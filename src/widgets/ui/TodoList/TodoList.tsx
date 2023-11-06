@@ -1,4 +1,4 @@
-import useFilterTodo from '@enteties/todo/hooks/useFilterTodo';
+import useFilterTodo from '@features/hooks/useFilterTodo';
 import TodoItem from '@widgets/ui/Todo/Todo';
 import { FC } from 'react';
 import { Box } from 'simplify-dev';

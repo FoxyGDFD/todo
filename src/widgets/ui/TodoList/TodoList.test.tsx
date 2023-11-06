@@ -1,5 +1,5 @@
-import { TodosContext } from '@enteties/todo/context';
-import { Filters, Todo } from '@enteties/todo/types';
+import { TodosContext } from '@entities/todo/context';
+import { Filters, Todo } from '@entities/todo/types';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import TodoList from '@widgets/ui/TodoList/TodoList.tsx';

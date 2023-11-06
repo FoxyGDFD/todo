@@ -1,4 +1,4 @@
-import { useTodo } from '@enteties/todo/hooks/useTodo';
+import { useTodo } from '@features/hooks/useTodo';
 import { FC } from 'react';
 import { Box, Button, Input } from 'simplify-dev';
 

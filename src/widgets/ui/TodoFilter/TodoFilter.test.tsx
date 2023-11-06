@@ -1,10 +1,16 @@
-import { Filters, Todo } from '@enteties/todo/types';
+import TodosProvider from '@app/providers/TodosProvider';
+import { Filters, Todo } from '@entities/todo/types';
 import '@testing-library/jest-dom';
-import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
+import {
+  act,
+  cleanup,
+  fireEvent,
+  render,
+  screen
+} from '@testing-library/react';
 import TodoFilter from '@widgets/ui/TodoFilter/TodoFilter.tsx';
 import TodoList from '@widgets/ui/TodoList/TodoList.tsx';
 import { beforeEach, describe, expect, it } from 'vitest';
-import TodosProvider from '@features/TodosProvider';
 
 describe('TodoFilterComponents', () => {
   beforeEach(() => cleanup());
@@ -14,7 +20,7 @@ describe('TodoFilterComponents', () => {
       { id: '1', isCompleted: false, name: '1' },
       { id: '2', isCompleted: true, name: '123' }
     ];
-    
+
     render(
       <TodosProvider init={{ filter: Filters.ALL, todos }}>
         <TodoList />
@@ -26,9 +32,10 @@ describe('TodoFilterComponents', () => {
       fireEvent.click(screen.getByText('Active'));
     });
 
-    expect(screen.getAllByRole('todo-item').length).toBe(todos.filter(({isCompleted }) => !isCompleted).length);
+    expect(screen.getAllByRole('todo-item').length).toBe(
+      todos.filter(({ isCompleted }) => !isCompleted).length
+    );
   });
-
 
   it('Filter by completed', () => {
     const todos: Todo[] = [
@@ -37,7 +44,7 @@ describe('TodoFilterComponents', () => {
     ];
 
     render(
-      <TodosProvider init={{todos, filter: Filters.ALL}}>
+      <TodosProvider init={{ filter: Filters.ALL, todos }}>
         <TodoList />
         <TodoFilter />
       </TodosProvider>
@@ -47,9 +54,10 @@ describe('TodoFilterComponents', () => {
       fireEvent.click(screen.getByText('Completed'));
     });
 
-    expect(screen.getAllByRole('todo-item').length).toBe(todos.filter(({ isCompleted }) => isCompleted).length);
-      });
-
+    expect(screen.getAllByRole('todo-item').length).toBe(
+      todos.filter(({ isCompleted }) => isCompleted).length
+    );
+  });
 
   it('Filter by all', () => {
     const todos: Todo[] = [
@@ -58,13 +66,11 @@ describe('TodoFilterComponents', () => {
     ];
 
     render(
-      <TodosProvider init={{todos, filter: Filters.ALL}}>
+      <TodosProvider init={{ filter: Filters.ALL, todos }}>
         <TodoList />
         <TodoFilter />
       </TodosProvider>
     );
-
-
 
     act(() => {
       fireEvent.click(screen.getByText('Active'));

@@ -28,7 +28,7 @@
       "@features/*": ["./features/*"],
       "@pages/*": ["./pages/*"],
       "@shared/*": ["./shared/*"],
-      "@enteties/*": ["./enteties/*"]
+      "@entities/*": ["./entities/*"]
     }
   },
   "exclude": ["./node_modules"],

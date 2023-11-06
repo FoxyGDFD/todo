@@ -1,5 +1,5 @@
-import { useTodo } from '@enteties/todo/hooks/useTodo';
-import { Todo } from '@enteties/todo/types';
+import { Todo } from '@entities/todo/types';
+import { useTodo } from '@features/hooks/useTodo';
 import { FC } from 'react';
 import { Button, Typography } from 'simplify-dev';
 import { Checkbox } from 'simplify-dev/client-ui';

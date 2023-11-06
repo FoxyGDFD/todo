@@ -1,6 +1,6 @@
-import { TodosContext } from '@enteties/todo/context';
-import { useTodo } from '@enteties/todo/hooks/useTodo';
-import { Filters, Todo } from '@enteties/todo/types';
+import { TodosContext } from '@entities/todo/context';
+import { Filters, Todo } from '@entities/todo/types';
+import { useTodo } from '@features/hooks/useTodo';
 import { FC, useContext } from 'react';
 import { Box, Button } from 'simplify-dev';
 import { TabList, TabListProvider } from 'simplify-dev/client-ui';
